@@ -34,18 +34,28 @@ char *random_date() {
     return date;
 }
 
+char *random_document() {
+    char *document = malloc(sizeof(char) * 20);
+    int first_part, second_part, third_part, fourth_part;
+    first_part = rand() % 100;
+    second_part = rand() % 100;
+    third_part = rand() % 100;
+    fourth_part = rand() % 10;
+    sprintf(document, "%d.%d.%d-%d", first_part, second_part, third_part, fourth_part);
+    return document;
+}
+
 TEmployee* generate_employees(int total) {
     TEmployee *employees = malloc(sizeof(TEmployee) * total);
 
     for (int i = 0; i < total; i++) {
         const int key = rand() % 100000;
-        employees[i].cod = key;
+        employees[i].id = key;
         strcpy(employees[i].name, random_name());
+        strcpy(employees[i].document, random_document());
         strcpy(employees[i].birth_date, random_date());
         employees[i].income = rand() % 100000;
     }
-
-    write_employees("employees.bin", employees, total);
 
     return employees;
 }

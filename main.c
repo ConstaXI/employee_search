@@ -2,15 +2,19 @@
 #include "employee/employee.h"
 #include "interface/interface.h"
 #include "generate/generation.h"
+#include "btree/btree.h"
 
 int main() {
-    TEmployee* employees = generate_employees(100);
+    int total = 100;
 
-    TKey * keys = write_employees("employees.bin", employees, 100);
+    TEmployee* employees = generate_employees(total);
 
-    select_sorting_method(keys, 100);
+    TKey * keys = write_employees("employees.bin", employees, total);
+
+    menu(keys, total);
 
     free(employees);
+    free(keys);
 
     return 0;
 }

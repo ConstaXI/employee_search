@@ -7,6 +7,8 @@
 #include <stdio.h>
 
 #include "../employee/employee.h"
+#include "../key/key.h"
+#include "../btree/btree.h"
 
 void *read_data(char *, int, size_t);
 

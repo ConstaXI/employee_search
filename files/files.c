@@ -53,18 +53,19 @@ void write_keys(char *filename, TKey *keys, int total) {
     if (fclose(file) == EOF) exit(1);
 }
 
-TKey* write_employees(char *filename, TEmployee *data, int total) {
+TKey *write_employees(char *filename, TEmployee *data, int total) {
     FILE *file;
 
     file = fopen(filename, "wb");
 
     if (file == NULL) exit(1);
 
-    TKey * keys = malloc(sizeof(TKey) * total);
+    TKey *keys = malloc(sizeof(TKey) * total);
 
     for (int i = 0; i < total; i++) {
-        keys[i].cod = data[i].cod;
+        keys[i].id = data[i].id;
         keys[i].key = i;
+        insert(get_main_root(), &keys[i]);
     }
 
     write_keys("employees_keys.bin", keys, total);

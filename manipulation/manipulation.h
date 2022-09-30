@@ -3,6 +3,7 @@
 
 #include "../employee/employee.h"
 #include "../files/files.h"
+#include "../key/key.h"
 
 void insertion_sort(TKey *, int);
 

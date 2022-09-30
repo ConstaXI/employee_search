@@ -8,16 +8,11 @@
 #include <time.h>
 
 typedef struct Employee {
-    int cod;
+    int id;
     char name[100];
-    char document[12];
+    char document[20];
     char birth_date[20];
     double income;
 } TEmployee;
-
-typedef struct Key {
-    int cod;
-    int key;
-} TKey;
 
 #endif //EMPLOYEE_SEARCH_EMPLOYEE_H

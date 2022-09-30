@@ -10,7 +10,7 @@ void insertion_sort(TKey *data, int total) {
     for (i = 1; i < total; i++) {
         aux = data[i];
         j = i - 1;
-        while (j >= 0 && data[j].cod > aux.cod) {
+        while (j >= 0 && data[j].id > aux.id) {
             data[j + 1] = data[j];
             j--;
         }
@@ -35,7 +35,7 @@ TEmployee *sequential_search(TKey *data, int total, int cod) {
 
     for (i = 0; i < total; i++) {
         comparisons++;
-        if (data[i].cod == cod) {
+        if (data[i].id == cod) {
             position_target = data[i].key;
             break;
         }
@@ -65,10 +65,10 @@ TEmployee *binary_search(TKey *data, int total, int cod) {
     while (i <= j) {
         comparisons++;
         m = (i + j) / 2;
-        if (data[m].cod == cod) {
+        if (data[m].id == cod) {
             position_target = data[m].key;
             break;
-        } else if (data[m].cod > cod)
+        } else if (data[m].id > cod)
             j = m - 1;
         else
             i = m + 1;
