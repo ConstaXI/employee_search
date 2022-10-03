@@ -59,3 +59,14 @@ TEmployee* generate_employees(int total) {
 
     return employees;
 }
+
+TKey *generate_keys(TEmployee *employees, int total) {
+    TKey *keys = malloc(sizeof(TKey) * total);
+
+    for (int i = 0; i < total; i++) {
+        keys[i].id = employees[i].id;
+        keys[i].key = i;
+    }
+
+    return keys;
+}

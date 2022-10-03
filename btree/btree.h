@@ -1,8 +1,10 @@
 #ifndef EMPLOYEE_SEARCH_BTREE_H
 #define EMPLOYEE_SEARCH_BTREE_H
 
-#include "../employee/employee.h"
-#include "../files/files.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "../key/key.h"
 
 typedef struct TNode {
     TKey *key;
@@ -10,7 +12,11 @@ typedef struct TNode {
     struct TNode *right;
 } TNode;
 
+extern TNode * main_root;
+
 TNode *get_main_root();
+
+void create_btree(TKey *keys, int total);
 
 void insert(TNode *root, TKey *key);
 

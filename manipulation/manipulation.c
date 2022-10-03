@@ -17,13 +17,29 @@ void insertion_sort(TKey *data, int total) {
         data[j + 1] = aux;
     }
 
-    write_keys("employees_keys.bin", data, total);
+    write_data("employees_keys.bin", data, total, sizeof(TKey));
 
     clock_t end = clock();
 
     double time_spent = (double) (end - begin) / CLOCKS_PER_SEC;
 
     printf("\ninsertion_sort execution time: %lf seconds\n", time_spent);
+}
+
+TKey * delete_key(TKey *data, int total, int id) {
+    int i;
+
+    for (i = 0; i < total; i++) {
+        if (data[i].id == id) {
+            break;
+        }
+    }
+
+    for (i; i < total - 1; i++) {
+        data[i] = data[i + 1];
+    }
+
+    return data;
 }
 
 TEmployee *sequential_search(TKey *data, int total, int cod) {

@@ -6,15 +6,11 @@
 #include <time.h>
 #include <stdio.h>
 
-#include "../employee/employee.h"
-#include "../key/key.h"
-#include "../btree/btree.h"
+extern int TOTAL_REGISTERS;
 
 void *read_data(char *, int, size_t);
 
-TKey* write_employees(char *, TEmployee *, int);
-
-void write_keys(char *, TKey *, int);
+void* write_data(char *, void *, int, size_t);
 
 void *read_target(char *filename, int target, size_t size_of_type);
 

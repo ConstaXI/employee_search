@@ -56,26 +56,39 @@ void btree_menu(TKey *keys, int total) {
     }
 }
 
-void menu(TKey *data, int total) {
+void menu(TKey *data, int total, int is_sorted) {
     int option;
     printf("\nMENU:\n");
-    printf("1 - Insertion sort\n");
-    printf("2 - Binary search\n");
+    printf("\nSORTING\n");
+    printf("1 - Insertion sort\n\n");
+    printf("\nSEARCHING\n");
+    if (is_sorted) {
+        printf("2 - Binary search\n");
+    } else {
+        printf("2 - Binary search - FILE IS NOT SORTED\n");
+    }
     printf("3 - Sequential search\n");
-    printf("4 - Print Employee list\n");
-    printf("5 - Print Employees Keys\n");
-    printf("6 - Find with B Tree\n");
-    printf("7 - Remove from B Tree\n");
-    printf("8 - Print ids from B Tree\n");
-    printf("9 - Exit\n");
+    printf("4 - Find with B Tree\n\n");
+    printf("\nPRINTING\n");
+    printf("5 - Print Keys\n");
+    printf("6 - Print Employee list\n");
+    printf("7 - Print ids from B Tree\n\n");
+    printf("\nREMOVING\n");
+    printf("8 - Remove from B Tree\n\n");
+    printf("9 - EXIT\n");
     scanf("%d", &option);
     switch (option) {
         case 1:
             insertion_sort(data, total);
 
+            is_sorted = 1;
+
             break;
         case 2: {
-            printf("Remember to sort the employees first.\n");
+            if (!is_sorted) {
+                printf("\nFILE IS NOT SORTED\n");
+                exit(10);
+            }
 
             int cod = input_code();
 
@@ -93,20 +106,6 @@ void menu(TKey *data, int total) {
             break;
         }
         case 4: {
-            TEmployee *employees = read_data("employees.bin", total, sizeof(TEmployee));
-
-            print_employees(employees, total);
-
-            break;
-        }
-        case 5: {
-            TKey *keys = read_data("employees_keys.bin", total, sizeof(TKey));
-
-            print_keys(keys, total);
-
-            break;
-        }
-        case 6: {
             TKey *key = find(get_main_root(), input_code());
 
             if (key == NULL) {
@@ -120,13 +119,38 @@ void menu(TKey *data, int total) {
 
             break;
         }
+        case 5: {
+            print_keys(data, total);
+
+            break;
+        }
+        case 6: {
+            TEmployee *employees = read_data("employees.bin", total, sizeof(TEmployee));
+
+            print_employees(employees, total);
+
+            break;
+        }
         case 7: {
-            delete(input_code());
+            print_btree_keys(get_main_root());
 
             break;
         }
         case 8: {
-            print_btree_keys(get_main_root());
+            TKey *key = find(get_main_root(), input_code());
+
+            if (key == NULL) {
+                printf("\nKey not found\n");
+                break;
+            }
+
+            delete(key->id);
+
+            data = delete_key(data, total, key->id);
+
+            write_data("employees_keys.bin", data, total - 1, sizeof(TKey));
+
+            TOTAL_REGISTERS--;
 
             break;
         }
@@ -137,5 +161,5 @@ void menu(TKey *data, int total) {
             break;
     }
 
-    menu(data, total);
+    menu(data, TOTAL_REGISTERS, is_sorted);
 }

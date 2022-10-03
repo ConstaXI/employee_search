@@ -36,6 +36,12 @@ void insert(TNode *root, TKey *key) {
     }
 }
 
+void create_btree(TKey *keys, int total) {
+    for (int i = 0; i < total; i++) {
+        insert(main_root, &keys[i]);
+    }
+}
+
 void delete(int id) {
     TNode *root = get_main_root();
     TNode *parent = NULL;

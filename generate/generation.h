@@ -6,11 +6,10 @@
 
 #include "../employee/employee.h"
 #include "../files/files.h"
-
-char *random_date();
-
-char *random_name();
+#include "../key/key.h"
 
 TEmployee* generate_employees(int);
+
+TKey *generate_keys(TEmployee *employees, int total);
 
 #endif //EMPLOYEE_SEARCH_GENERATION_H

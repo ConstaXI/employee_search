@@ -11,4 +11,6 @@ TEmployee *sequential_search(TKey *, int, int);
 
 TEmployee *binary_search(TKey *, int, int);
 
+TKey *delete_key(TKey *keys, int total, int id);
+
 #endif //EMPLOYEE_SEARCH_MANIPULATION_H
