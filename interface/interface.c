@@ -28,34 +28,6 @@ int input_code() {
     return id;
 }
 
-void btree_menu(TKey *keys, int total) {
-    int option = 0;
-    int id;
-
-    while (option != 3) {
-        printf("\n1 - Search by code\n2 - Print keys\n3 - Exit\n");
-        scanf("%d", &option);
-
-        switch (option) {
-            case 1:
-                id = input_code();
-                TKey *key = find(get_main_root(), id);
-                TEmployee *employee = read_target("employees.bin", key->id, sizeof(TEmployee));
-                print_employee(employee);
-                break;
-            case 2:
-                print_keys(keys, total);
-                break;
-            case 3:
-                break;
-            default:
-                printf("\nInvalid option\n");
-                btree_menu(keys, total);
-                break;
-        }
-    }
-}
-
 void menu(TKey *data, int total, int is_sorted) {
     int option;
     printf("\nMENU:\n");
