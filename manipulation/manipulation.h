@@ -20,6 +20,6 @@ employee_t *binary_search(TKey *, int, int);
 
 TKey *delete_key(TKey *, int, int);
 
-void internal_classification(char *, const out_t *, int);
+void internal_classification(const out_t *, int);
 
 #endif //EMPLOYEE_SEARCH_MANIPULATION_H

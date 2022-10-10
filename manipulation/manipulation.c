@@ -109,16 +109,6 @@ void save_employee(employee_t *employee, FILE *file) {
     fwrite(&employee->income, sizeof(float), 1, file);
 }
 
-employee_t *read_employee(FILE *file) {
-    employee_t *employee = (employee_t *) malloc(sizeof(employee_t));
-    fread(&employee->id, sizeof(int), 1, file);
-    fread(&employee->name, sizeof(char), 100, file);
-    fread(&employee->document, sizeof(int), 20, file);
-    fread(&employee->birth_date, sizeof(char), 20, file);
-    fread(&employee->income, sizeof(float), 1, file);
-    return employee;
-}
-
 out_t *populate_out_t(out_t *out, int total) {
     int i;
     for (i = 0; i < total; i++) {
@@ -130,47 +120,36 @@ out_t *populate_out_t(out_t *out, int total) {
     return out;
 }
 
-void internal_classification(char *in_file, const out_t *out_file, int size) {
-    int end = 0;
-    FILE *file;
-    if ((file = fopen(in_file, "rb")) == NULL) {
-        exit(1);
-    } else {
-        employee_t *employee = read_employee(file);
-        while (!(end)) {
-            employee_t *v[size];
-            int i = 0;
-            while (!feof(file) && i < size) {
-                v[i] = employee;
-                employee = read_employee(file);
-                i++;
+void internal_classification(const out_t *out_file, int size) {
+    while (out_file != NULL) {
+        employee_t *v[size];
+        int i = 0;
+        while (i < size) {
+            v[i] = read_target("employees.bin", i, sizeof(employee_t));
+            i++;
+        }
+        if (i != size) {
+            size = i;
+        }
+        for (int j = 1; j < size; j++) {
+            employee_t *c = v[j];
+            i = j - 1;
+            while ((i >= 0) && (v[i]->id > c->id)) {
+                v[i + 1] = v[i];
+                i = i - 1;
             }
-            if (i != size) {
-                size = i;
+            v[i + 1] = c;
+        }
+        char *partition = out_file->name;
+        out_file = out_file->next;
+        FILE *p;
+        if ((p = fopen(partition, "wb")) == NULL) {
+            exit(1);
+        } else {
+            for (int j = 0; j < size; j++) {
+                save_employee(v[j], p);
             }
-            for (int j = 1; j < size; j++) {
-                employee_t *c = v[j];
-                i = j - 1;
-                while ((i >= 0) && (v[i]->id > c->id)) {
-                    v[i + 1] = v[i];
-                    i = i - 1;
-                }
-                v[i + 1] = c;
-            }
-            char *partition = out_file->name;
-            out_file = out_file->next;
-            FILE *p;
-            if ((p = fopen(partition, "wb")) == NULL) {
-                exit(1);
-            } else {
-                for (int j = 0; j < size; j++) {
-                    save_employee(v[j], p);
-                }
-                fclose(p);
-            }
-            if (feof(file)) {
-                end = 1;
-            }
+            fclose(p);
         }
     }
 }

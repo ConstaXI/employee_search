@@ -32,7 +32,7 @@ void menu(TKey *data, int total, int is_sorted) {
     int option;
     printf("\nMENU:\n");
     printf("\nSORTING\n");
-    printf("0 - Generate sorted partitions\n\n");
+    printf("0 - Generate sorted partitions\n");
     printf("1 - Insertion sort\n\n");
     printf("\nSEARCHING\n");
     if (is_sorted) {
@@ -56,7 +56,7 @@ void menu(TKey *data, int total, int is_sorted) {
 
             populate_out_t(files, OUTPUT_FILES_ORDER);
 
-            internal_classification("employees.bin", files, total);
+            internal_classification(files, OUTPUT_FILES_ORDER);
 
             free(files);
 
