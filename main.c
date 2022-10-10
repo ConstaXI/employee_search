@@ -5,11 +5,11 @@
 #include "btree/btree.h"
 
 int main() {
-    TEmployee* employees = generate_employees(TOTAL_REGISTERS);
+    employee_t* employees = generate_employees(TOTAL_REGISTERS);
 
     TKey * keys = generate_keys(employees, TOTAL_REGISTERS);
 
-    write_data("employees.bin", employees, TOTAL_REGISTERS, sizeof(TEmployee));
+    write_data("employees.bin", employees, TOTAL_REGISTERS, sizeof(employee_t));
 
     write_data("employees_keys.bin", keys, TOTAL_REGISTERS, sizeof(TKey));
 

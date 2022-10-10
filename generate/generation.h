@@ -8,8 +8,8 @@
 #include "../files/files.h"
 #include "../key/key.h"
 
-TEmployee* generate_employees(int);
+employee_t* generate_employees(int);
 
-TKey *generate_keys(TEmployee *employees, int total);
+TKey *generate_keys(employee_t *employees, int total);
 
 #endif //EMPLOYEE_SEARCH_GENERATION_H

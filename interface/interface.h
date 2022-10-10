@@ -6,8 +6,9 @@
 #include "../manipulation/manipulation.h"
 #include "../key/key.h"
 #include "../btree/btree.h"
+#include "../files/files.h"
 
-void print_employee(TEmployee *);
+void print_employee(employee_t *);
 
 int input_code();
 

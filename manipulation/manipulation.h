@@ -5,12 +5,21 @@
 #include "../files/files.h"
 #include "../key/key.h"
 
+typedef struct out_file {
+    char *name;
+    struct out_file *next;
+} out_t;
+
 void insertion_sort(TKey *, int);
 
-TEmployee *sequential_search(TKey *, int, int);
+out_t *populate_out_t(out_t *out, int total);
 
-TEmployee *binary_search(TKey *, int, int);
+employee_t *sequential_search(TKey *, int, int);
 
-TKey *delete_key(TKey *keys, int total, int id);
+employee_t *binary_search(TKey *, int, int);
+
+TKey *delete_key(TKey *, int, int);
+
+void internal_classification(char *, const out_t *, int);
 
 #endif //EMPLOYEE_SEARCH_MANIPULATION_H

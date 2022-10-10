@@ -42,7 +42,7 @@ TKey * delete_key(TKey *data, int total, int id) {
     return data;
 }
 
-TEmployee *sequential_search(TKey *data, int total, int cod) {
+employee_t *sequential_search(TKey *data, int total, int cod) {
     clock_t begin = clock();
     int i;
 
@@ -57,7 +57,7 @@ TEmployee *sequential_search(TKey *data, int total, int cod) {
         }
     }
 
-    TEmployee *employee = read_target("employees.bin", position_target, sizeof(TEmployee));
+    employee_t *employee = read_target("employees.bin", position_target, sizeof(employee_t));
 
     clock_t end = clock();
 
@@ -68,7 +68,7 @@ TEmployee *sequential_search(TKey *data, int total, int cod) {
     return employee;
 }
 
-TEmployee *binary_search(TKey *data, int total, int cod) {
+employee_t *binary_search(TKey *data, int total, int cod) {
     clock_t begin = clock();
 
     int i, j, m;
@@ -90,7 +90,7 @@ TEmployee *binary_search(TKey *data, int total, int cod) {
             i = m + 1;
     }
 
-    TEmployee *employee = read_target("employees.bin", position_target, sizeof(TEmployee));
+    employee_t *employee = read_target("employees.bin", position_target, sizeof(employee_t));
 
     clock_t end = clock();
 
@@ -99,4 +99,78 @@ TEmployee *binary_search(TKey *data, int total, int cod) {
     printf("\nbinary_search_return execution time: %lf, \ncomparisons: %d\n", time_spent, comparisons);
 
     return employee;
+}
+
+void save_employee(employee_t *employee, FILE *file) {
+    fwrite(&employee->id, sizeof(int), 1, file);
+    fwrite(&employee->name, sizeof(char), 100, file);
+    fwrite(&employee->document, sizeof(int), 20, file);
+    fwrite(&employee->birth_date, sizeof(char), 20, file);
+    fwrite(&employee->income, sizeof(float), 1, file);
+}
+
+employee_t *read_employee(FILE *file) {
+    employee_t *employee = (employee_t *) malloc(sizeof(employee_t));
+    fread(&employee->id, sizeof(int), 1, file);
+    fread(&employee->name, sizeof(char), 100, file);
+    fread(&employee->document, sizeof(int), 20, file);
+    fread(&employee->birth_date, sizeof(char), 20, file);
+    fread(&employee->income, sizeof(float), 1, file);
+    return employee;
+}
+
+out_t *populate_out_t(out_t *out, int total) {
+    int i;
+    for (i = 0; i < total; i++) {
+        out[i].name = malloc(sizeof(char) * 100);
+        sprintf(out[i].name, "employee_partition_%d.bin", i);
+        out[i].next = &out[i + 1];
+    }
+    out[total - 1].next = NULL;
+    return out;
+}
+
+void internal_classification(char *in_file, const out_t *out_file, int size) {
+    int end = 0;
+    FILE *file;
+    if ((file = fopen(in_file, "rb")) == NULL) {
+        exit(1);
+    } else {
+        employee_t *employee = read_employee(file);
+        while (!(end)) {
+            employee_t *v[size];
+            int i = 0;
+            while (!feof(file) && i < size) {
+                v[i] = employee;
+                employee = read_employee(file);
+                i++;
+            }
+            if (i != size) {
+                size = i;
+            }
+            for (int j = 1; j < size; j++) {
+                employee_t *c = v[j];
+                i = j - 1;
+                while ((i >= 0) && (v[i]->id > c->id)) {
+                    v[i + 1] = v[i];
+                    i = i - 1;
+                }
+                v[i + 1] = c;
+            }
+            char *partition = out_file->name;
+            out_file = out_file->next;
+            FILE *p;
+            if ((p = fopen(partition, "wb")) == NULL) {
+                exit(1);
+            } else {
+                for (int j = 0; j < size; j++) {
+                    save_employee(v[j], p);
+                }
+                fclose(p);
+            }
+            if (feof(file)) {
+                end = 1;
+            }
+        }
+    }
 }

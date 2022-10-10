@@ -2,6 +2,8 @@
 
 int TOTAL_REGISTERS = 100;
 
+int OUTPUT_FILES_ORDER = 6;
+
 void *read_data(char *filename, int total, size_t size_of_type) {
     FILE *file;
 

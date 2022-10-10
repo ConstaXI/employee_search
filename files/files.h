@@ -8,6 +8,8 @@
 
 extern int TOTAL_REGISTERS;
 
+extern int OUTPUT_FILES_ORDER;
+
 void *read_data(char *, int, size_t);
 
 void* write_data(char *, void *, int, size_t);

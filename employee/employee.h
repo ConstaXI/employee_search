@@ -7,12 +7,12 @@
 #include <windows.h>
 #include <time.h>
 
-typedef struct Employee {
+typedef struct employee {
     int id;
     char name[100];
     char document[20];
     char birth_date[20];
     double income;
-} TEmployee;
+} employee_t;
 
 #endif //EMPLOYEE_SEARCH_EMPLOYEE_H

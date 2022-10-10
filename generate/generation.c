@@ -45,8 +45,8 @@ char *random_document() {
     return document;
 }
 
-TEmployee* generate_employees(int total) {
-    TEmployee *employees = malloc(sizeof(TEmployee) * total);
+employee_t* generate_employees(int total) {
+    employee_t *employees = malloc(sizeof(employee_t) * total);
 
     for (int i = 0; i < total; i++) {
         const int key = rand() % 100000;
@@ -60,7 +60,7 @@ TEmployee* generate_employees(int total) {
     return employees;
 }
 
-TKey *generate_keys(TEmployee *employees, int total) {
+TKey *generate_keys(employee_t *employees, int total) {
     TKey *keys = malloc(sizeof(TKey) * total);
 
     for (int i = 0; i < total; i++) {
