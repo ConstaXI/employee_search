@@ -7,7 +7,7 @@
 #include "../key/key.h"
 
 typedef struct TNode {
-    TKey *key;
+    key_t *key;
     struct TNode *left;
     struct TNode *right;
 } TNode;
@@ -16,11 +16,11 @@ extern TNode * main_root;
 
 TNode *get_main_root();
 
-void create_btree(TKey *keys, int total);
+void create_btree(key_t *keys, int total);
 
-void insert(TNode *root, TKey *key);
+void insert(TNode *root, key_t *key);
 
-TKey *find(TNode *root, int id);
+key_t *find(TNode *root, int id);
 
 void print_btree_keys(TNode *root);
 

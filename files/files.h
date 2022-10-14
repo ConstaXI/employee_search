@@ -14,6 +14,8 @@ void *read_data(char *, int, size_t);
 
 void* write_data(char *, void *, int, size_t);
 
-void *read_target(char *filename, int target, size_t size_of_type);
+void *read_target(char *filename, long target, size_t size_of_type);
+
+void *write_target(char *filename, long target, size_t size_of_type, void *data);
 
 #endif //EMPLOYEE_SEARCH_FILES_H

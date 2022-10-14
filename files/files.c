@@ -23,7 +23,7 @@ void *read_data(char *filename, int total, size_t size_of_type) {
     return data;
 }
 
-void *read_target(char *filename, int target, size_t size_of_type) {
+void *read_target(char *filename, long target, size_t size_of_type) {
     FILE *file;
 
     file = fopen(filename, "rb");
@@ -35,6 +35,26 @@ void *read_target(char *filename, int target, size_t size_of_type) {
     if (fseek(file, target * size_of_type, SEEK_SET) != 0) exit(1);
 
     if (fread(data, size_of_type, 1, file) != 1) exit(1);
+
+    if (fclose(file) == EOF) {
+        free(data);
+        exit(1);
+    }
+
+    return data;
+}
+
+void *write_target(char *filename, long target, size_t size_of_type, void *data) {
+    FILE *file;
+
+    file = fopen(filename, "ab+");
+
+    if (file == NULL) exit(1);
+
+    if (fseek(file, target * size_of_type, SEEK_SET) != 0) exit(1);
+
+    if (fwrite(data, size_of_type, 1, file) != 1)
+        exit(1);
 
     if (fclose(file) == EOF) {
         free(data);

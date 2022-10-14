@@ -10,6 +10,8 @@
 
 employee_t* generate_employees(int);
 
-TKey *generate_keys(employee_t *employees, int total);
+key_t *generate_keys(employee_t *employees, int total);
+
+employee_t* generate_employee();
 
 #endif //EMPLOYEE_SEARCH_GENERATION_H

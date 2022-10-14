@@ -1,13 +1,15 @@
-//
-// Created by DaviB on 30/09/2022.
-//
-
 #ifndef EMPLOYEE_SEARCH_KEY_H
 #define EMPLOYEE_SEARCH_KEY_H
 
-typedef struct Key {
+#include <stdlib.h>
+
+typedef struct key {
     int id;
-    int key;
-} TKey;
+    int position;
+} key_t;
+
+key_t *generate_key(int, int);
+
+int find_free_position(key_t *keys, int total);
 
 #endif //EMPLOYEE_SEARCH_KEY_H

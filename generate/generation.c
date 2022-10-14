@@ -60,12 +60,22 @@ employee_t* generate_employees(int total) {
     return employees;
 }
 
-TKey *generate_keys(employee_t *employees, int total) {
-    TKey *keys = malloc(sizeof(TKey) * total);
+employee_t* generate_employee() {
+    employee_t* employee = malloc(sizeof(employee_t));
+    employee->id = rand() % 100000;
+    strcpy(employee->name, random_name());
+    strcpy(employee->document, random_document());
+    strcpy(employee->birth_date, random_date());
+    employee->income = rand() % 100000;
+    return employee;
+}
+
+key_t *generate_keys(employee_t *employees, int total) {
+    key_t *keys = malloc(sizeof(key_t) * total);
 
     for (int i = 0; i < total; i++) {
         keys[i].id = employees[i].id;
-        keys[i].key = i;
+        keys[i].position = i;
     }
 
     return keys;

@@ -4,6 +4,7 @@
 #include <conio.h>
 #include "../employee/employee.h"
 #include "../manipulation/manipulation.h"
+#include "../generate/generation.h"
 #include "../key/key.h"
 #include "../btree/btree.h"
 #include "../files/files.h"
@@ -12,8 +13,8 @@ void print_employee(employee_t *);
 
 int input_code();
 
-void menu(TKey *, int, int);
+void menu(key_t *, int);
 
-void print_keys(TKey *, int);
+void print_keys(key_t *, int);
 
 #endif //EMPLOYEE_SEARCH_INTERFACE_H

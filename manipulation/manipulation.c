@@ -1,11 +1,11 @@
 #include "manipulation.h"
 
-void insertion_sort(TKey *data, int total) {
+void insertion_sort(key_t *data, int total) {
     clock_t begin = clock();
 
     int i, j;
 
-    TKey aux;
+    key_t aux;
 
     for (i = 1; i < total; i++) {
         aux = data[i];
@@ -17,7 +17,7 @@ void insertion_sort(TKey *data, int total) {
         data[j + 1] = aux;
     }
 
-    write_data("employees_keys.bin", data, total, sizeof(TKey));
+    write_data("employees_keys.bin", data, total, sizeof(key_t));
 
     clock_t end = clock();
 
@@ -26,7 +26,7 @@ void insertion_sort(TKey *data, int total) {
     printf("\ninsertion_sort execution time: %lf seconds\n", time_spent);
 }
 
-TKey * delete_key(TKey *data, int total, int id) {
+key_t * delete_key(key_t *data, int total, int id) {
     int i;
 
     for (i = 0; i < total; i++) {
@@ -42,7 +42,7 @@ TKey * delete_key(TKey *data, int total, int id) {
     return data;
 }
 
-employee_t *sequential_search(TKey *data, int total, int cod) {
+employee_t *sequential_search(key_t *data, int total, int cod) {
     clock_t begin = clock();
     int i;
 
@@ -52,7 +52,7 @@ employee_t *sequential_search(TKey *data, int total, int cod) {
     for (i = 0; i < total; i++) {
         comparisons++;
         if (data[i].id == cod) {
-            position_target = data[i].key;
+            position_target = data[i].position;
             break;
         }
     }
@@ -68,7 +68,7 @@ employee_t *sequential_search(TKey *data, int total, int cod) {
     return employee;
 }
 
-employee_t *binary_search(TKey *data, int total, int cod) {
+employee_t *binary_search(key_t *data, int total, int cod) {
     clock_t begin = clock();
 
     int i, j, m;
@@ -82,7 +82,7 @@ employee_t *binary_search(TKey *data, int total, int cod) {
         comparisons++;
         m = (i + j) / 2;
         if (data[m].id == cod) {
-            position_target = data[m].key;
+            position_target = data[m].position;
             break;
         } else if (data[m].id > cod)
             j = m - 1;

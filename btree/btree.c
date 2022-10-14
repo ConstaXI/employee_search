@@ -6,7 +6,7 @@ TNode * get_main_root() {
     return main_root;
 }
 
-void insert(TNode *root, TKey *key) {
+void insert(TNode *root, key_t *key) {
     if (root == NULL) {
         root = malloc(sizeof(TNode));
         root->key = key;
@@ -36,7 +36,7 @@ void insert(TNode *root, TKey *key) {
     }
 }
 
-void create_btree(TKey *keys, int total) {
+void create_btree(key_t *keys, int total) {
     for (int i = 0; i < total; i++) {
         insert(main_root, &keys[i]);
     }
@@ -109,7 +109,7 @@ void delete(int id) {
     }
 }
 
-TKey *find(TNode *root, int id) {
+key_t *find(TNode *root, int id) {
     if (root == NULL) {
         return NULL;
     } else if (id < root->key->id) {

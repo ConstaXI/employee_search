@@ -10,15 +10,15 @@ typedef struct out_file {
     struct out_file *next;
 } out_t;
 
-void insertion_sort(TKey *, int);
+void insertion_sort(key_t *, int);
 
 out_t *populate_out_t(out_t *out, int total);
 
-employee_t *sequential_search(TKey *, int, int);
+employee_t *sequential_search(key_t *, int, int);
 
-employee_t *binary_search(TKey *, int, int);
+employee_t *binary_search(key_t *, int, int);
 
-TKey *delete_key(TKey *, int, int);
+key_t *delete_key(key_t *, int, int);
 
 void internal_classification(const out_t *, int);
 
