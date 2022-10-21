@@ -162,7 +162,7 @@ void menu(key_t *data, int is_sorted) {
 
             delete(key->id);
 
-            key_t * keys = read_data("employees_keys.bin", TOTAL_REGISTERS, sizeof(key_t));
+            key_t *keys = read_data("employees_keys.bin", TOTAL_REGISTERS, sizeof(key_t));
 
             delete_key(keys, TOTAL_REGISTERS, key->id);
 
@@ -175,7 +175,7 @@ void menu(key_t *data, int is_sorted) {
         case 9 : {
             int hash_table_size = 1000;
 
-            key_t * hash_table = create_hash_table(data, hash_table_size);
+            key_t *hash_table = create_hash_table(data, hash_table_size);
 
             print_hash_table(hash_table, hash_table_size);
 
@@ -184,9 +184,12 @@ void menu(key_t *data, int is_sorted) {
             break;
         }
         case 10: {
-            chain_hash_t * chained_hash_table = create_chained_hash_table(data, 100);
+            int chained_hash_table_size = 100;
 
-            print_chained_hash_table(chained_hash_table, 100);
+            chain_hash_t *chained_hash_table = create_chained_hash_table(data, chained_hash_table_size,
+                                                                         TOTAL_REGISTERS);
+
+            print_chained_hash_table(chained_hash_table, chained_hash_table_size);
 
             free(chained_hash_table);
 

@@ -17,15 +17,15 @@ key_t *create_hash_table(key_t *keys, int total) {
     return hash_table;
 }
 
-chain_hash_t *create_chained_hash_table(key_t *keys, int total) {
-    chain_hash_t *hash_table = malloc(sizeof(chain_hash_t) * total);
-    for (int i = 0; i < total; i++) {
+chain_hash_t *create_chained_hash_table(key_t *keys, int hash_table_size, int keys_size) {
+    chain_hash_t *hash_table = malloc(sizeof(chain_hash_t) * hash_table_size);
+    for (int i = 0; i < hash_table_size; i++) {
         hash_table[i].key.id = -1;
         hash_table[i].key.position = -1;
         hash_table[i].next = NULL;
     }
-    for (int i = 0; i < total; i++) {
-        int hash = keys[i].id % total;
+    for (int i = 0; i < keys_size; i++) {
+        int hash = keys[i].id % hash_table_size;
         if (hash_table[hash].key.id == -1) {
             hash_table[hash].key.id = keys[i].id;
             hash_table[hash].key.position = keys[i].position;
