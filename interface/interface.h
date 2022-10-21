@@ -8,6 +8,7 @@
 #include "../key/key.h"
 #include "../btree/btree.h"
 #include "../files/files.h"
+#include "../hash/hash.h"
 
 void print_employee(employee_t *);
 

@@ -62,7 +62,7 @@ employee_t* generate_employees(int total) {
 
 employee_t* generate_employee() {
     employee_t* employee = malloc(sizeof(employee_t));
-    employee->id = rand() % 100000;
+    employee->id = rand() % 1000;
     strcpy(employee->name, random_name());
     strcpy(employee->document, random_document());
     strcpy(employee->birth_date, random_date());

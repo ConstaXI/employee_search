@@ -3,6 +3,7 @@
 #include "interface/interface.h"
 #include "generate/generation.h"
 #include "btree/btree.h"
+#include "hash/hash.h"
 
 int main() {
     employee_t* employees = generate_employees(TOTAL_REGISTERS);
@@ -15,10 +16,17 @@ int main() {
 
     create_btree(keys, TOTAL_REGISTERS);
 
+    int hash_table_size = 1000;
+
+    key_t * hash_table = create_hash_table(keys, hash_table_size);
+
+    print_hash_table(hash_table, hash_table_size);
+
     menu(keys, 0);
 
     free(employees);
     free(keys);
+    free(hash_table);
 
     return 0;
 }
