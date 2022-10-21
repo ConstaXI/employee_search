@@ -50,7 +50,10 @@ void menu(key_t *data, int is_sorted) {
     printf("7 - Print ids from B Tree\n\n");
     printf("\nREMOVING\n");
     printf("8 - Remove from B Tree\n\n");
-    printf("9 - EXIT\n");
+    printf("\nHASH TABLE\n");
+    printf("9 - Create Hash Table\n");
+    printf("10 - Create Chained Hash Table\n");
+    printf("\n99 - EXIT\n");
     scanf("%d", &option);
     switch (option) {
         case -1: {
@@ -169,7 +172,27 @@ void menu(key_t *data, int is_sorted) {
 
             break;
         }
-        case 9:
+        case 9 : {
+            int hash_table_size = 1000;
+
+            key_t * hash_table = create_hash_table(data, hash_table_size);
+
+            print_hash_table(hash_table, hash_table_size);
+
+            free(hash_table);
+
+            break;
+        }
+        case 10: {
+            chain_hash_t * chained_hash_table = create_chained_hash_table(data, 100);
+
+            print_chained_hash_table(chained_hash_table, 100);
+
+            free(chained_hash_table);
+
+            break;
+        }
+        case 99:
             exit(0);
         default:
             printf("\nInvalid option\n");
